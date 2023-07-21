@@ -104,7 +104,7 @@ app.delete('/notes/:id',middleData,(req,res)=>{
 
 //404 
 app.use((req,res)=>{
-    res.status(404).send('<h2>¡Lo sentimos! , no hemos podido encontrar el recurso solicitado</h2>');
+    res.status(404).send('<h2>¡Lo sentimos sr/a! , no hemos podido encontrar el recurso solicitado</h2>');
 });
 
 
