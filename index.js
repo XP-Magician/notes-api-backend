@@ -110,5 +110,5 @@ app.use((req,res)=>{
 
 
 // Puerto y avisos finales
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT,()=>console.log('Server running at : '+PORT));
