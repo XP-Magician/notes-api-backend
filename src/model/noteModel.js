@@ -1,6 +1,5 @@
-import './connectionBD.js';
 import mongoose from 'mongoose';
-
+import './connectionBD.js';
 
 const Schema = mongoose.Schema;
 const model = mongoose.model;

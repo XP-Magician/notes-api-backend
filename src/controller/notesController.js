@@ -1,7 +1,4 @@
 import {Note} from '../model/noteModel.js';
-import mongoose from 'mongoose';
-
-const conn = mongoose.connection;
 
 export const saveNote = (note)=>{
     let state;

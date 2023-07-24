@@ -1,6 +1,4 @@
-
-const APP_CREDENTIALS = {
-    MONGO : 'mongodb+srv://dfbrega:zQjHv8zDRejjp04y@cluster0.4i9yc9x.mongodb.net/notes_app'
+const APP_CREDENTIALS ={
+   MONGO: process.env.MONGO_DB
 };
-
 export default APP_CREDENTIALS;
