@@ -10,7 +10,17 @@ const noteSchema = Schema({
     content:String,
     date: Date,
     important: Boolean
-});
+},
+);
+
+noteSchema.methods.toJSON = function (){
+    const noteObject = this.toObject();
+    noteObject.id = noteObject._id;
+    delete noteObject._id;
+    delete noteObject.__v;
+    return noteObject;
+};
+
 
 //Modelo 
 export const Note = model('Note',noteSchema);

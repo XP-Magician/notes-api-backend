@@ -1,6 +1,8 @@
 import Express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import {getNotes} from './src/controller/notesController.js';
+import { get } from 'mongoose';
 
 let notes = [
     {
@@ -62,7 +64,10 @@ app.use(cors(corsOptions));
 
 //GET METHOD
 app.get('/',(req,res)=>{
-    res.send('<h1>Este es el index</h1>');
+    getNotes({})
+    .then(resp=>res.json(resp))
+    .catch(err=>console.log(err));
+
 });
 
 app.get('/notes',(req,res)=>{
