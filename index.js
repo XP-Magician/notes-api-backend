@@ -2,7 +2,7 @@ import {} from 'dotenv/config';
 import Express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import {getNotes} from './src/controller/notesController.js';
+import {getNotes,saveNote} from './src/controller/notesController.js';
 
 
 const app = Express();
@@ -19,6 +19,15 @@ app.get('/',(req,res)=>{
     .catch(err=>console.log(err));
 
 });
+
+//POST METHOD
+app.post('/notes',(req,res)=>{
+    let note = req.body;
+    saveNote(note)
+        .then(response =>res.json(response))
+        .catch(error =>res.status(400).send(error)); 
+});
+
 
 //404 
 app.use((req,res)=>{
