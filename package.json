@@ -15,7 +15,8 @@
   "license": "ISC",
   "devDependencies": {
     "eslint": "8.45.0",
-    "nodemon": "3.0.1"
+    "nodemon": "3.0.1",
+    "semistandard": "^17.0.0"
   },
   "dependencies": {
     "cors": "2.8.5",
