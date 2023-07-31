@@ -26,8 +26,11 @@ module.exports = {
       'error',
       'windows'
     ],
+    curly: [
+      'warn'
+    ],
     quotes: [
-      'error',
+      'warn',
       'single'
     ],
     semi: [

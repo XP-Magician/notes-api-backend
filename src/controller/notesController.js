@@ -1,4 +1,6 @@
 import { Note } from '../model/noteModel.js';
+import '../model/connectionBD.js';
+import mongoose from 'mongoose';
 
 export const saveNote = async (note) => {
   const important = note.important ?? false;

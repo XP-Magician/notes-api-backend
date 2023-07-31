@@ -3,7 +3,9 @@ import Express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { getNotes, saveNote } from './src/controller/notesController.js';
+import { middleGetById } from './src/middles/middleNotes.js';
 
+// Server initial config
 const app = Express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -14,6 +16,13 @@ app.use(cors());
 app.get('/', (req, res) => {
   getNotes({})
     .then(resp => res.json(resp))
+    .catch(err => console.log(err));
+});
+
+app.get('/:id', middleGetById, (req, resp) => {
+  const idSearch = req.params.id;
+  getNotes({ _id: idSearch })
+    .then(response => resp.json(response))
     .catch(err => console.log(err));
 });
 
@@ -31,4 +40,4 @@ app.use((req, res) => {
 });
 
 const PORT = process.env.PORT;
-app.listen(PORT, () => console.log('Server running at : ' + PORT));
+app.listen(PORT, () => console.log(`Server running at : http://localhost:${PORT}`));
