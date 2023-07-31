@@ -1,0 +1,6 @@
+# GET ALL NOTES (OPTIONAL : NOTE ID)
+GET http://localhost:3001/notes 
+
+
+#PUT THE NOTE ID ABOVE 
+

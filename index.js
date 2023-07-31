@@ -1,25 +1,29 @@
 import {} from 'dotenv/config';
 import Express from 'express';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import { getNotes, saveNote } from './src/controller/notesController.js';
 import { middleGetById } from './src/middles/middleNotes.js';
 
 // Server initial config
 const app = Express();
-app.use(bodyParser.json());
+app.use(Express.json());
 app.use(cors());
+app.disable('x-powered-by');
 
 // Paths
 
 // GET METHOD
 app.get('/', (req, res) => {
+  res.json({ Welcome: 'Greetings, welcome to my API' });
+});
+
+app.get('/notes', (req, res) => {
   getNotes({})
     .then(resp => res.json(resp))
     .catch(err => console.log(err));
 });
 
-app.get('/:id', middleGetById, (req, resp) => {
+app.get('notes/:id', middleGetById, (req, resp) => {
   const idSearch = req.params.id;
   getNotes({ _id: idSearch })
     .then(response => resp.json(response))
