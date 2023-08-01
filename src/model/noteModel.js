@@ -5,7 +5,7 @@ const model = mongoose.model;
 
 // Definir esquema a nivel de app
 const noteSchema = Schema({
-  content: String,
+  content: { type: String, required: true },
   date: Date,
   important: Boolean
 }

@@ -1,13 +1,21 @@
+/* eslint-disable no-useless-catch */
 import { Note } from '../model/noteModel.js';
 import '../model/connectionBD.js';
 
 export const saveNote = async (note) => {
   const important = note.important ?? false;
   note.important = important;
-  const noteToAdd = new Note({ date: new Date(), ...note });
-  await noteToAdd.validate();
-  await noteToAdd.save();
-  return noteToAdd;
+  try {
+    const noteToAdd = new Note({ date: new Date(), ...note });
+    if (await noteToAdd.validate()) {
+      await noteToAdd.save();
+      return noteToAdd;
+    } else {
+      throw new Error('Request doesnt have the necessary params');
+    }
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const getNotes = (filter) => {

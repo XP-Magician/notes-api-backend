@@ -35,12 +35,12 @@ app.post('/notes', (req, res) => {
   const note = req.body;
   saveNote(note)
     .then(response => res.json(response))
-    .catch(error => res.status(400).send(error));
+    .catch((err) => { console.log('error catch index;'); res.status(400).send(err.message); });
 });
 
 // 404
 app.use((req, res) => {
-  res.status(404).send('<h2>¡Lo sentimos sr/a! , no hemos podido encontrar el recurso solicitado</h2>');
+  res.status(404).send('We could not find the resource that you are looking for');
 });
 
 const PORT = process.env.PORT;
