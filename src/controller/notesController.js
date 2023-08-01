@@ -7,15 +7,15 @@ export const saveNote = async (note) => {
   note.important = important;
   try {
     const noteToAdd = new Note({ date: new Date(), ...note });
-    if (await noteToAdd.validate()) {
-      await noteToAdd.save();
-      return noteToAdd;
-    } else {
-      throw new Error('Request doesnt have the necessary params');
-    }
+    await noteToAdd.save();
+    return noteToAdd;
   } catch (err) {
     throw err;
   }
+};
+
+export const updateNote = () => {
+
 };
 
 export const getNotes = (filter) => {

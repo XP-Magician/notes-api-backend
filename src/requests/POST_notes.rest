@@ -4,6 +4,7 @@ POST http://localhost:3001/notes HTTP/1.1
 Content-Type: application/json
 
 {
-    "invalid_param":"Hello i'm an invalid param"
+    //"invalid":"invalid request to test middleware"
+    "content": "Hello im the good content"
 }
 

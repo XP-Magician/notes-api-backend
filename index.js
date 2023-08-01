@@ -2,7 +2,7 @@ import {} from 'dotenv/config';
 import Express from 'express';
 import cors from 'cors';
 import { getNotes, saveNote } from './src/controller/notesController.js';
-import { middleGetById } from './src/middles/middleNotes.js';
+import { middleValidateId, middleValidateNote } from './src/middles/middleNotes.js';
 
 // Server initial config
 const app = Express();
@@ -23,7 +23,7 @@ app.get('/notes', (req, res) => {
     .catch(err => console.log(err));
 });
 
-app.get('notes/:id', middleGetById, (req, resp) => {
+app.get('notes/:id', middleValidateId, (req, resp) => {
   const idSearch = req.params.id;
   getNotes({ _id: idSearch })
     .then(response => resp.json(response))
@@ -31,11 +31,17 @@ app.get('notes/:id', middleGetById, (req, resp) => {
 });
 
 // POST METHOD
-app.post('/notes', (req, res) => {
+app.post('/notes', middleValidateNote, (req, res) => {
   const note = req.body;
   saveNote(note)
     .then(response => res.json(response))
     .catch((err) => { res.status(400).send(err.message); });
+});
+
+// PUT METHOD
+
+app.put('/notes', middleValidateNote, (req, resp) => {
+  const note = req.body;
 });
 
 // 404
