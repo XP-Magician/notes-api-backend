@@ -24,6 +24,14 @@ export const updateNote = async (note) => {
   }
 };
 
+export const deleteNote = async (noteId) => {
+  try {
+    return await Note.findByIdAndDelete(noteId);
+  } catch (err) {
+    throw err;
+  }
+};
+
 export const getNotes = (filter) => {
   return new Promise((resolve, reject) => {
     Note.find(filter)

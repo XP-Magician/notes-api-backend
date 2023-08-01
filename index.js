@@ -1,7 +1,7 @@
 import {} from 'dotenv/config';
 import Express from 'express';
 import cors from 'cors';
-import { getNotes, saveNote, updateNote } from './src/controller/notesController.js';
+import { deleteNote, getNotes, saveNote, updateNote } from './src/controller/notesController.js';
 import { middleValidateId, middleValidateNote } from './src/middles/middleNotes.js';
 
 // Server initial config
@@ -44,6 +44,14 @@ app.put('/notes', middleValidateId, middleValidateNote, (req, resp) => {
   const note = req.body;
   updateNote(note)
     .then(result => resp.status(201).json(result))
+    .catch(err => resp.status(400).send(err.message));
+});
+
+// DELETE METHOD
+app.delete('/notes/:_id', middleValidateId, (req, resp) => {
+  const { _id } = req.params;
+  deleteNote(_id)
+    .then(result => resp.json(result))
     .catch(err => resp.status(400).send(err.message));
 });
 
