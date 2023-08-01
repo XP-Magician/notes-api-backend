@@ -35,7 +35,7 @@ app.post('/notes', (req, res) => {
   const note = req.body;
   saveNote(note)
     .then(response => res.json(response))
-    .catch((err) => { console.log('error catch index;'); res.status(400).send(err.message); });
+    .catch((err) => { res.status(400).send(err.message); });
 });
 
 // 404
