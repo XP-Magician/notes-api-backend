@@ -5,6 +5,6 @@ Content-Type: application/json
 
 {
     //"invalid":"invalid request to test middleware"
-    "content": "Hello im the good content"
+    "content": "Hello im testtingg"
 }
 

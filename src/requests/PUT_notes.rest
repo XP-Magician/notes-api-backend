@@ -1,0 +1,7 @@
+PUT http://localhost:3001/notes HTTP/1.1
+Content-Type: application/json
+
+{
+    "_id":"64bde91dc19936885d2582ca",
+    "content":"im testing put rq2"
+}

@@ -1,6 +1,3 @@
 # GET ALL NOTES (OPTIONAL : NOTE ID)
-GET http://localhost:3001/notes 
-
-
-#PUT THE NOTE ID ABOVE 
+GET http://localhost:3001/notes/64bde91dc19936885d2582ca
 
