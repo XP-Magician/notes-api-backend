@@ -3,5 +3,5 @@ Content-Type: application/json
 
 {
     "_id":"64bde91dc19936885d2582ca",
-    "content":"im testing put rq2"
+    "contentaa":"im testing put rq2"
 }
