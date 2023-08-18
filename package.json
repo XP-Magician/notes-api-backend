@@ -17,7 +17,8 @@
     "eslint": "8.45.0",
     "mocha": "^10.2.0",
     "nodemon": "3.0.1",
-    "semistandard": "^17.0.0"
+    "semistandard": "^17.0.0",
+    "supertest": "^6.3.3"
   },
   "dependencies": {
     "@sentry/node": "^7.61.0",

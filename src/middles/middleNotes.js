@@ -25,7 +25,7 @@ export const middleValidateNote = async (req, res, next) => {
    const note = req.body;
    try {
       const noteToAdd = new Note({ ...note });
-      !await noteToAdd.validate() ? next() : res.status(400).end('Request could not be validated, try again');
+      await noteToAdd.validate() ? next() : res.status(400).end('Request could not be validated, try again');
     } catch (err) {
       res.status(400).end(err.message); 
     }
