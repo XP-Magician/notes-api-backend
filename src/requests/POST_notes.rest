@@ -4,7 +4,6 @@ POST http://localhost:3001/notes HTTP/1.1
 Content-Type: application/json
 
 {
-    //"invalid":"invalid request to test middleware"
-    "contento": "Hello im testtingg"
+        "content": "Hello im testtingg"
 }
 

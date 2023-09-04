@@ -16,7 +16,6 @@ export const saveNote = async (note) => {
 
 export const updateNote = async (note) => {
   try {
-    console.log({ ...note });
     const { _id, ...content } = note;
     return await Note.findByIdAndUpdate(_id, content, { new: true });
   } catch (err) {
