@@ -7,7 +7,13 @@ const model = mongoose.model;
 const noteSchema = Schema({
   content: { type: String, required: true },
   date: Date,
-  important: Boolean
+  important: Boolean,
+  user: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ]
 }
 );
 
