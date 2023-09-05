@@ -1,0 +1,25 @@
+
+### GET ALL NOTES (OPTIONAL : NOTE ID)
+GET http://localhost:3001/notes/64e8fe22ea933bc67705f629 
+
+
+### DELETE A NOTE (: NOTE ID)
+DELETE http://localhost:3001/notes/64bde91dc19
+
+
+### CREATE A NOTE (IMPORTANT FIELD IS OPTIONAL)
+POST http://localhost:3001/notes HTTP/1.1
+Content-Type: application/json
+
+{
+        "content": "Hello im testtingg"
+}
+
+### UPDATE A NOTE (MUST HAVE A VALID STRUCTURE)
+PUT http://localhost:3001/notes HTTP/1.1
+Content-Type: application/json
+
+{
+    "_id":"64bde91dc19936885d2582ca",
+    "contentaa":"im testing put rq2"
+}

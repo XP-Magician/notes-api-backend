@@ -1,3 +1,0 @@
-# GET ALL NOTES (OPTIONAL : NOTE ID)
-GET http://localhost:3001/notes/64e8fe22ea933bc67705f629 
-

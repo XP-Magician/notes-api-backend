@@ -1,3 +1,0 @@
-# DELETE A NOTE (: NOTE ID)
-DELETE http://localhost:3001/notes/64bde91dc19
-
