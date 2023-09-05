@@ -22,3 +22,20 @@ export const middleValidateUser = async (req, resp, next) => {
     resp.status(400).end('Params are invalid');
   }
 };
+
+export const middleValidateUpdate = async (req, resp, next) => {
+  try {
+    const idUser = req.params.id;
+    const userFinded = await User.findById(idUser);
+    if (Object.keys(userFinded).length > 0) {
+      const updatedUser = new User({ ...userFinded, ...req.body });
+      await updatedUser.validate();
+      req.params.parsedUser = updatedUser;
+      next();
+    } else {
+      resp.status(400).end(`User ID : ${idUser} doesn't exist in database`);
+    }
+  } catch (err) {
+    resp.status(400).end('Params are invalid');
+  }
+};

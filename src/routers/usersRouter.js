@@ -1,7 +1,7 @@
 // Dependencies
 import { Router } from 'express';
 import { findUserById, findUsers, saveUser, updateUser } from '../controller/usersController.js';
-
+import { middleValidateUser, middleUserExists } from '../middlewares/middleUsers.js';
 // Router init
 const router = Router();
 
@@ -22,7 +22,7 @@ router.get('/:id', (req, resp) => {
 });
 
 // Create user
-router.post('/', (req, resp) => {
+router.post('/', middleValidateUser, middleUserExists, (req, resp) => {
   saveUser(req.body)
     .then(response => resp.json(response))
     .catch(err => resp.status(400).send(err.message));
@@ -31,7 +31,8 @@ router.post('/', (req, resp) => {
 // Update user
 router.patch('/:id', (req, resp) => {
   const userId = req.params.id;
-  updateUser(userId, req.body)
+  const { parsedUser } = req.params;
+  updateUser(userId, parsedUser)
     .then(response => resp.json(response))
     .catch(err => resp.status(400).send(err.message));
 });
