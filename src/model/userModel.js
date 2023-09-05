@@ -6,9 +6,9 @@ const model = mongoose.model;
 // Definicion del esquema a nivel de app
 
 const userSchema = new Schema({
-  username: String,
-  passwordHash: String,
-  name: String,
+  username: { type: String, required: true },
+  passwordHash: { type: String, required: true },
+  name: { type: String, required: true },
   notes: [{
     type: Schema.Types.ObjectId,
     ref: 'Note'

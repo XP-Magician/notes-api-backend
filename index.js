@@ -2,8 +2,10 @@
 import {} from 'dotenv/config';
 import Express from 'express';
 import cors from 'cors';
+
 // Routers
 import notesRouter from './src/routers/notesRouter.js';
+import userRouter from './src/routers/userRouter.js';
 
 // Server initial config
 const app = Express();
@@ -16,6 +18,7 @@ app.use('/images', Express.static('src/public'));
 
 // Paths
 app.use('/notes', notesRouter);
+app.use('/users', userRouter);
 
 // 404
 app.use((req, res) => {
