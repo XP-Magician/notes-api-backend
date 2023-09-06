@@ -5,7 +5,7 @@ import cors from 'cors';
 
 // Routers
 import notesRouter from './src/routers/notesRouter.js';
-import userRouter from './src/routers/userRouter.js';
+import userRouter from './src/routers/usersRouter.js';
 
 // Server initial config
 const app = Express();

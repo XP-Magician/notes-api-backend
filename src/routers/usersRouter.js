@@ -1,7 +1,7 @@
 // Dependencies
 import { Router } from 'express';
-import { findUserById, findUsers, saveUser, updateUser } from '../controller/usersController.js';
-import { middleValidateUser, middleUserExists } from '../middlewares/middleUsers.js';
+import { findUserById, findUsers, resetPassword, saveUser, updateUser } from '../controller/usersController.js';
+import { middleValidateUser, middleUserExists, middleValidateUpdate, middleValidatePass } from '../middlewares/middleUsers.js';
 // Router init
 const router = Router();
 
@@ -9,7 +9,7 @@ const router = Router();
 
 // Get users
 router.get('/', (req, resp) => {
-  findUsers({ ...req.body })
+  findUsers(req.query)
     .then(response => resp.json(response))
     .catch(err => resp.status(400).send(err.message));
 });
@@ -29,10 +29,19 @@ router.post('/', middleValidateUser, middleUserExists, (req, resp) => {
 });
 
 // Update user
-router.patch('/:id', (req, resp) => {
+router.patch('/:id', middleValidateUpdate, (req, resp) => {
   const userId = req.params.id;
   const { parsedUser } = req.params;
   updateUser(userId, parsedUser)
+    .then(response => resp.json(response))
+    .catch(err => resp.status(400).send(err.message));
+});
+
+// Change pass
+router.patch('/reset/:id', middleValidatePass, middleUserExists, (req, resp) => {
+  const { pass } = req.body;
+  const { id } = req.params;
+  resetPassword(pass, id)
     .then(response => resp.json(response))
     .catch(err => resp.status(400).send(err.message));
 });
