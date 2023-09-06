@@ -22,7 +22,7 @@ router.get('/:id', (req, resp) => {
 });
 
 // Create user
-router.post('/', middleValidateUser, middleUserExists, (req, resp) => {
+router.post('/', middleValidateUser, middleValidatePass, middleUserExists, (req, resp) => {
   saveUser(req.body)
     .then(response => resp.json(response))
     .catch(err => resp.status(400).send(err.message));
@@ -39,9 +39,9 @@ router.patch('/:id', middleValidateUpdate, (req, resp) => {
 
 // Change pass
 router.patch('/reset/:id', middleValidatePass, middleUserExists, (req, resp) => {
-  const { pass } = req.body;
+  const { passwordHash } = req.body;
   const { id } = req.params;
-  resetPassword(pass, id)
+  resetPassword(passwordHash, id)
     .then(response => resp.json(response))
     .catch(err => resp.status(400).send(err.message));
 });

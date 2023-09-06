@@ -1,6 +1,6 @@
 // Dependencies
 import User from '../model/userModel.js';
-
+import bcrypt from 'bcrypt';
 // Middlewares
 
 export const middleUserExists = async (req, resp, next) => {
@@ -8,6 +8,9 @@ export const middleUserExists = async (req, resp, next) => {
     const { username } = req.body;
     let searchResult = await User.find({ username });
     searchResult = Object.keys(searchResult).length;
+    let { passwordHash } = req.body;
+    passwordHash = await bcrypt.hash(passwordHash, 10);
+    req.body.passwordHash = passwordHash;
     searchResult > 0 ? resp.status(406).end('Username is already taken') : next();
   } catch (err) {
     resp.status(409).end('There was an error checking availability, please try again');
@@ -25,35 +28,35 @@ export const middleValidateUser = async (req, resp, next) => {
 };
 
 export const middleValidatePass = (req, resp, next) => {
-  const { pass } = req.body;
+  const { passwordHash } = req.body;
   let message = '';
-  if (!pass) {
-    resp.status(400).end('Error getting password. Try again');
+  if (!passwordHash) {
+    resp.status(400).end('Error getting passwordHashword. Try again');
   }
 
   // Valida longitud total
-  /[\d\w\W]{8,}/.test(pass) ? message += 'Longitud total : OK' : message += 'Longitud total: X';
+  /[\d\w\W]{8,}/.test(passwordHash) ? message += 'Longitud total : OK' : message += 'Longitud total: X';
   message += '\n';
 
   // Valida cantidad de digitos de al menos 2
-  /(?=\D*\d{2,})/.test(pass) ? message += 'Numeros: OK' : message += 'Numeros: X';
+  /(?=\D*\d{2,})/.test(passwordHash) ? message += 'Numeros: OK' : message += 'Numeros: X';
   message += '\n';
 
   // Valida cantidad de mayusculas de almenos 1
-  /(?=[^A-Z]*[A-Z]{1,})/.test(pass) ? message += 'Mayusculas: OK' : message += 'Mayusculas: X';
+  /(?=[^A-Z]*[A-Z]{1,})/.test(passwordHash) ? message += 'Mayusculas: OK' : message += 'Mayusculas: X';
   message += '\n';
 
   // Valida minusculas, almenos 1
-  /(?=[^a-z]*[a-z]{1,})/.test(pass) ? message += 'Minusculas: OK' : message += 'Minusculas: X';
+  /(?=[^a-z]*[a-z]{1,})/.test(passwordHash) ? message += 'Minusculas: OK' : message += 'Minusculas: X';
   message += '\n';
 
   // Cantidad de caracteres especiales de al menos 2
-  /(?=[^\W]*\W{2,})/.test(pass) ? message += 'Especiales: OK' : message += 'Especiales: X';
+  /(?=[^\W]*\W{2,})/.test(passwordHash) ? message += 'Especiales: OK' : message += 'Especiales: X';
 
   // Valida si cumple o no cumple
   if (/(?=[^xX]*X)/gm.test(message)) {
     // Si no cumple
-    resp.status(400).end(`Password :${pass}\n\n${message}`);
+    resp.status(400).end(`Password :${passwordHash}\n\n${message}`);
   } else {
     // Si cumple
     next();
