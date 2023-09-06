@@ -20,8 +20,12 @@ router.get('/:_id', middleValidateId, (req, resp) => {
 // POST METHOD
 router.post('/', middleValidateNote, (req, res) => {
   const note = req.body;
-  saveNote(note)
-    .then(response => res.json(response))
+  const { user } = req.params;
+  saveNote(note, user)
+    .then(response => {
+      res.json(response);
+    }
+    )
     .catch((err) => { res.status(400).send(err.message); });
 });
 

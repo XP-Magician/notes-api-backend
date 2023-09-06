@@ -2,12 +2,14 @@
 import { Note } from '../model/noteModel.js';
 import '../model/connectionBD.js';
 
-export const saveNote = async (note) => {
+export const saveNote = async (note, user) => {
   const important = note.important ?? false;
   note.important = important;
   try {
     const noteToAdd = new Note({ date: new Date(), ...note });
-    await noteToAdd.save();
+    const { _id } = await noteToAdd.save();
+    user.notes = user.notes.concat(_id);
+    await user.save();
     return noteToAdd;
   } catch (err) {
     throw err;
@@ -33,7 +35,7 @@ export const deleteNote = async (noteId) => {
 
 export const getNotes = (filter) => {
   return new Promise((resolve, reject) => {
-    Note.find(filter)
+    Note.find(filter).populate('userId', { username: true, name: true })
       .then(resp => {
         const content = resp;
         resolve(content);

@@ -6,6 +6,7 @@ import cors from 'cors';
 // Routers
 import notesRouter from './src/routers/notesRouter.js';
 import userRouter from './src/routers/usersRouter.js';
+import loginRouter from './src/routers/loginRouter.js';
 
 // Server initial config
 const app = Express();
@@ -19,7 +20,7 @@ app.use('/images', Express.static('src/public'));
 // Paths
 app.use('/notes', notesRouter);
 app.use('/users', userRouter);
-
+app.use('/login', loginRouter);
 // 404
 app.use((req, res) => {
   res.status(404).send('We could not find the resource that you are looking for');

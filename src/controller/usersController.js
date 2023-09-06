@@ -13,7 +13,14 @@ export const findUserById = async (userId) => {
   const NOT_FINDED_ERR = `There aren't any users with id: ${userId} in the database.`;
   const INVALID_FORMAT = 'The id format provided is invalid';
   try {
-    const userFinded = await User.findById(userId).select('-passwordHash');
+    const userFinded = /* ↓  */
+    await User.findById(userId)
+      .select('-passwordHash')
+      .populate('notes', {
+        content: true,
+        date: true,
+        important: true
+      });
     if (userFinded === null) {
       return [];
     } else {
@@ -41,6 +48,13 @@ export const findUsers = async ({ username, name }) => {
   let paramsToSearch = {};
   if (username) paramsToSearch = { ...paramsToSearch, username };
   if (name) paramsToSearch = { ...paramsToSearch, name };
-  const usersFinded = await User.find(paramsToSearch).select('-passwordHash');
+  const usersFinded = /* ↓  */
+    await User.find(paramsToSearch)
+      .select('-passwordHash')
+      .populate('notes', {
+        content: true,
+        date: true,
+        important: true
+      });
   return usersFinded;
 };

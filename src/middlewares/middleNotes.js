@@ -1,6 +1,8 @@
 /* eslint-disable  */
 import mongoose from 'mongoose';
 import { Note } from '../model/noteModel.js';
+import { findUserById } from '../controller/usersController.js';
+import { response } from 'express';
 
 export const middleValidateId = async (req, res, next) => {
    let data;
@@ -23,10 +25,16 @@ export const middleValidateId = async (req, res, next) => {
 
 export const middleValidateNote = async (req, res, next) => {
    const note = req.body;
+   !note.userId
+   ?res.status(400).end('Notes must have a user propietary')
+   :/*Just for avoid lint*/note.user; 
    try {
       const noteToAdd = new Note(note);
       await noteToAdd.validate();
-       next() 
+      const user = await findUserById(noteToAdd.userId);
+      Array.isArray(user)?res.status(400).end('User not founded'):req.params.user=user; 
+      next();
+      
     } catch (err) {
       res.status(400).end(err.message); 
     }
