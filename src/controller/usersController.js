@@ -15,7 +15,7 @@ export const findUserById = async (userId) => {
   try {
     const userFinded = await User.findById(userId).select('-passwordHash');
     if (userFinded === null) {
-      throw new Error(NOT_FINDED_ERR);
+      return [];
     } else {
       return userFinded;
     }
@@ -29,7 +29,7 @@ export const findUserById = async (userId) => {
 
 export const resetPassword = async (newPass, userId) => {
   const userUpdated = await User.findByIdAndUpdate(userId, { passwordHash: newPass }, { new: true });
-  return userUpdated;
+  return userUpdated ?? [];
 };
 
 export const updateUser = async (userId, userToUpdate) => {

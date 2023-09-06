@@ -41,6 +41,7 @@ router.patch('/:id', middleValidateUpdate, (req, resp) => {
 router.patch('/reset/:id', middleValidatePass, middleUserExists, (req, resp) => {
   const { passwordHash } = req.body;
   const { id } = req.params;
+  console.log('Llegue alfinal');
   resetPassword(passwordHash, id)
     .then(response => resp.json(response))
     .catch(err => resp.status(400).send(err.message));
