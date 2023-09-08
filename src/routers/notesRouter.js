@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { deleteNote, getNotes, saveNote, updateNote } from '../controller/notesController.js';
 import { middleValidateId, middleValidateNote } from '../middlewares/middleNotes.js';
-
+import { middleInspectSubject } from '../middlewares/middleAuthorization.js';
 const router = Router();
 
 router.get('/', (req, res) => {
@@ -18,9 +18,9 @@ router.get('/:_id', middleValidateId, (req, resp) => {
 });
 
 // POST METHOD
-router.post('/', middleValidateNote, (req, res) => {
+router.post('/', middleInspectSubject, middleValidateNote, (req, res) => {
   const note = req.body;
-  const { user } = req.params;
+  const user = req.params.user;
   saveNote(note, user)
     .then(response => {
       res.json(response);

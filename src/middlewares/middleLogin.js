@@ -1,5 +1,3 @@
-// Dependencies
-import '../controller/loginController.js';
 
 // Middlewares
 const sendErr = (code, message, response) => {
